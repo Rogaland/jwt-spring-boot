@@ -21,7 +21,7 @@ compile('no.rogfk:jwt-spring-boot:0.0.6')
 ```
 
 # Usage
-On the main class (containing `@SpringBootApplication`) add the `@EnableJwtTokenizer` annotation.  
+On the main class (containing `@SpringBootApplication`) add the `@EnableJwt` annotation.  
 The jwt-spring-boot can be configured either by values in the annotation or properties/yml-files.
 If both exists, the properties/yml-file values will always win.
 
@@ -33,7 +33,7 @@ The important methods are `wrap` and `unwrap`.
 
 __Example__
 ```java
-@EnableJwtTokenizer(issuer = "my-org", maxAgeMinutes = 120)
+@EnableJwt(issuer = "my-org", maxAgeMinutes = 120)
 @SpringBootApplication
 public class Application {
   ...
@@ -78,7 +78,7 @@ TestDto unwrapped = springJwtTokenizer.unwrap(TestDto.class, token);
 
 ## Standard Validators
 The standard validators are enabled by default.  
-You can disable them by setting `standardValidators` to false in the `@EnableJwtTokenizer` annotation.  
+You can disable them by setting `standardValidators` to false in the `@EnableJwt` annotation.  
 If no properties are set for max-age and issuer, the validators are skipped.  
   
 __Standard validators__:  
@@ -114,7 +114,7 @@ public class MyStringLengthValidator implements ClaimValidator {
 ```
 
 # Encryption
-Encryption can be enabled/disabled in the `@EnableJwtTokenizer`, it is enabled by default.  
+Encryption can be enabled/disabled in the `@EnableJwt`, it is enabled by default.  
 If it is enabled the property 'jasypt.encryptor.password' must be set.
 
 # Configuration

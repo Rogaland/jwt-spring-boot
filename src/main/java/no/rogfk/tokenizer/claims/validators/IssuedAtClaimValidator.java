@@ -1,12 +1,14 @@
 package no.rogfk.tokenizer.claims.validators;
 
 import io.jsonwebtoken.Claims;
-import lombok.extern.slf4j.Slf4j;
 import no.rogfk.tokenizer.config.ClaimsConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Slf4j
 public class IssuedAtClaimValidator implements ClaimValidator {
+
+    private static final Logger log = LoggerFactory.getLogger(IssuedAtClaimValidator.class);
 
     @Autowired
     private ClaimsConfig claimsConfig;
@@ -32,7 +34,7 @@ public class IssuedAtClaimValidator implements ClaimValidator {
             return false;
         }
     }
-    
+
     private boolean configValuesNotSet() {
         return (!claimsConfig.isStandardValidators() || claimsConfig.getMaxAgeMinutes() == null || claimsConfig.getMaxAgeMinutes() <= 0);
     }

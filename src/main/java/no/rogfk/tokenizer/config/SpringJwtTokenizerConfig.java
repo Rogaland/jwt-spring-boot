@@ -2,14 +2,15 @@ package no.rogfk.tokenizer.config;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.TextCodec;
-import lombok.extern.slf4j.Slf4j;
 import no.rogfk.tokenizer.SpringJwtTokenizer;
-import no.rogfk.tokenizer.annotation.EnableJwtTokenizer;
+import no.rogfk.tokenizer.annotations.EnableJwt;
 import no.rogfk.tokenizer.claims.Claim;
 import no.rogfk.tokenizer.claims.validators.ClaimValidator;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,11 +28,12 @@ import java.util.*;
 
 import static org.springframework.util.StringUtils.isEmpty;
 
-@Slf4j
 @Configuration
 @EnableConfigurationProperties
 @ComponentScan(basePackageClasses = SpringJwtTokenizer.class)
 public class SpringJwtTokenizerConfig implements ApplicationContextAware {
+
+    private static final Logger log = LoggerFactory.getLogger(SpringJwtTokenizerConfig.class);
 
     @Value("${jasypt.encryptor.algorithm:PBEWITHSHA256AND128BITAES-CBC-BC}")
     private String encryptorAlgorithm;
@@ -70,17 +72,17 @@ public class SpringJwtTokenizerConfig implements ApplicationContextAware {
         Map<String, ClaimValidator> beans = applicationContext.getBeansOfType(ClaimValidator.class);
         validators = beans.values();
 
-        Map<String, Object> annotatedBeans = applicationContext.getBeansWithAnnotation(EnableJwtTokenizer.class);
+        Map<String, Object> annotatedBeans = applicationContext.getBeansWithAnnotation(EnableJwt.class);
         if (annotatedBeans.size() == 1) {
             Object annotatedBean = annotatedBeans.values().iterator().next();
-            EnableJwtTokenizer annotation = AnnotationUtils.findAnnotation(annotatedBean.getClass(), EnableJwtTokenizer.class);
+            EnableJwt annotation = AnnotationUtils.findAnnotation(annotatedBean.getClass(), EnableJwt.class);
             setAnnotationConfig(annotation);
         } else {
             throw new IllegalStateException("Expected 1 bean with @EnableJwtTokenizer, but found " + annotatedBeans.size());
         }
     }
 
-    private void setAnnotationConfig(EnableJwtTokenizer annotation) {
+    private void setAnnotationConfig(EnableJwt annotation) {
         claimsConfig.setEncryptionEnabled(annotation.encryption());
         claimsConfig.setStandardValidators(annotation.standardValidators());
         String annotationIssuer = annotation.issuer();

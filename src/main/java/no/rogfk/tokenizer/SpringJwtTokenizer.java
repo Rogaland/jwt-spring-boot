@@ -3,13 +3,14 @@ package no.rogfk.tokenizer;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.JwtParser;
-import lombok.extern.slf4j.Slf4j;
 import no.rogfk.tokenizer.claims.Claim;
 import no.rogfk.tokenizer.claims.validators.ClaimValidator;
 import no.rogfk.tokenizer.exception.ClaimValidatorException;
 import no.rogfk.tokenizer.exception.InvalidTokenException;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.NotWritablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,9 @@ import java.util.stream.Collectors;
 
 import static org.springframework.util.StringUtils.isEmpty;
 
-@Slf4j
 public class SpringJwtTokenizer {
+
+    private static final Logger log = LoggerFactory.getLogger(SpringJwtTokenizer.class);
 
     @Autowired
     private StringEncryptor encryptor;
