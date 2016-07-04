@@ -1,0 +1,8 @@
+jasypt:
+ encryptor:
+  password: test123
+
+jwt:
+ key: test-key
+ issuer: test-org
+ max-age-minutes: 2
