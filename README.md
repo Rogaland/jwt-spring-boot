@@ -1,5 +1,7 @@
 # JWT Spring Boot
 
+[![Build Status](https://travis-ci.org/Rogaland/jwt-spring-boot.svg?branch=master)](https://travis-ci.org/Rogaland/jwt-spring-boot)
+
 JWT Spring Boot makes it easy to integrate JSON Web Tokens ([JWT](https://jwt.io/)) and Spring boot.
 
 ---
