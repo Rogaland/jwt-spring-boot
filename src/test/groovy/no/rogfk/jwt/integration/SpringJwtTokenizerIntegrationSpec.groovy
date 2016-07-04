@@ -3,8 +3,8 @@ package no.rogfk.jwt.integration
 import io.jsonwebtoken.Claims
 import no.rogfk.jwt.SpringJwtTokenizer
 import no.rogfk.jwt.claims.Claim
-import no.rogfk.jwt.exception.ClaimValidatorException
-import no.rogfk.jwt.exception.InvalidTokenException
+import no.rogfk.jwt.exceptions.ClaimValidatorException
+import no.rogfk.jwt.exceptions.InvalidTokenException
 import no.rogfk.jwt.testutils.TestApplication
 import no.rogfk.jwt.testutils.TestDto
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,4 +1,4 @@
-package no.rogfk.jwt.exception;
+package no.rogfk.jwt.exceptions;
 
 public class ClaimValidatorException extends RuntimeException {
 
