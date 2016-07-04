@@ -1,6 +1,5 @@
 classes
 .idea
-.mvn
 target
 *.iml
 out
