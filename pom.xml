@@ -159,7 +159,7 @@
         <repository>
             <id>bintray-rfkikt-maven</id>
             <name>rfkikt-maven</name>
-            <url>https://api.bintray.com/maven/rfkikt/maven/spring-jwt-tokenizer/;publish=1</url>
+            <url>https://api.bintray.com/maven/rfkikt/maven/jwt-spring-boot/;publish=1</url>
         </repository>
     </distributionManagement>
 
