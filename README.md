@@ -47,7 +47,7 @@ public class Application {
 }
 ```
 
-The main class is `SpringJwtTokenizer` andit can be `@Autowired` into your own classes.  
+The main class is `SpringJwtTokenizer` and it can be `@Autowired` into your own classes.  
 The important methods are `create` and `parse`.
 
 * __create()__ - Creates the JWT string and encrypts (if enabled) the value. Returns a string token.
