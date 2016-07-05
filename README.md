@@ -22,8 +22,12 @@ compile('no.rogfk:jwt-spring-boot:0.0.7')
 
 # Usage
 On the main class (containing `@SpringBootApplication`) add the `@EnableJwt` annotation.  
-The jwt-spring-boot can be configured either by values in the annotation or properties/yml-files.
-If both exists, the properties/yml-file values will always win.
+The jwt-spring-boot can be configured either by values in the annotation or properties/yml-files.  
+If both exists, the properties/yml-file values will always win.  
+
+Encryption can be enabled/disabled in the `@EnableJwt`, it is enabled by default.  
+If it is enabled the property _'jasypt.encryptor.password'_ must be set.
+
 
 __Example__
 ```java
@@ -34,7 +38,7 @@ public class Application {
 }
 ```
 
-The main class used in `SpringJwtTokenizer`, it can be `@Autowired` into your own classes.  
+The main class is `SpringJwtTokenizer` andit can be `@Autowired` into your own classes.  
 The important methods are `create` and `parse`.
 
 * __create()__ - Creates the JWT string and encrypts (if enabled) the value. Returns a string token.
@@ -52,8 +56,7 @@ public void init() {
 ```
 
 By using the `@JwtParam` annotation in a `RestController` class the parsing of a JWT string is done automatically.  
-The controller expects the input to be sent as a URL parameter or as a header. The name of the param can be specified in the annotation.  
-If the name is not set, the name of the method variable is used.
+The controller expects the input to be sent as a URL parameter. The name of the param can be specified in the annotation. If the name is not set, the name of the method variable is used.
 
 __Example__
 ```java
@@ -62,7 +65,7 @@ public TestDto test(@JwtParam TestDto testDto) {
     return testDto;
 }
 ```
-Expected url will contain: /custom-claim?testDto=<jwt>
+The url contains: `/custom-claim?testDto=<jwt>`
 
 
 ## Custom DTO
@@ -127,10 +130,6 @@ public class MyStringLengthValidator implements ClaimValidator {
     }
 }
 ```
-
-# Encryption
-Encryption can be enabled/disabled in the `@EnableJwt`, it is enabled by default.  
-If it is enabled the property 'jasypt.encryptor.password' must be set.
 
 # Configuration
 
