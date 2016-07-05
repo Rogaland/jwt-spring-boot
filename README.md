@@ -33,8 +33,9 @@ On the main class (containing `@SpringBootApplication`) add the `@EnableJwt` ann
 The jwt-spring-boot can be configured either by values in the annotation or properties/yml-files.  
 If both exists, the properties/yml-file values will always win.  
 
-Encryption can be enabled/disabled in the `@EnableJwt`, it is enabled by default. If it is enabled the property _'jasypt.encryptor.password'_ must be set.
-If encryption is disable the JWT string will be returned from `SpringJwtTokenizer.create()`.
+Encryption can be enabled/disabled in the `@EnableJwt`, it is enabled by default.
+If it is enabled the property _'jasypt.encryptor.password'_ must be set.  
+If encryption is disabled the JWT string will be returned from `SpringJwtTokenizer.create()`.
 
 
 __Example__
