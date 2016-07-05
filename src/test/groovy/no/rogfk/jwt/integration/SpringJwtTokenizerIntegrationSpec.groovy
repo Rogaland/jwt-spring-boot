@@ -22,7 +22,7 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
 
     def "Unwrap invalid token"() {
         when:
-        springJwtTokenizer.unwrap("testing")
+        springJwtTokenizer.parse("testing")
 
         then:
         thrown InvalidTokenException
@@ -34,8 +34,8 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         def claim2 = new Claim("test-claim2", "test-value2")
 
         when:
-        def token = springJwtTokenizer.wrap(claim1, claim2)
-        def claims = springJwtTokenizer.unwrap(token)
+        def token = springJwtTokenizer.create(claim1, claim2)
+        def claims = springJwtTokenizer.parse(token)
 
         then:
         token != null
@@ -52,8 +52,8 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         def claim2 = new Claim("test-claim", "fail")
 
         when:
-        def token = springJwtTokenizer.wrap(claim1, claim2)
-        springJwtTokenizer.unwrap(token)
+        def token = springJwtTokenizer.create(claim1, claim2)
+        springJwtTokenizer.parse(token)
 
         then:
         ClaimValidatorException exception = thrown()
@@ -62,8 +62,8 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
 
     def "Wrap and unwrap, single value"() {
         when:
-        def token = springJwtTokenizer.wrap(new TestDto(text1: "value1"))
-        def unwrapped = springJwtTokenizer.unwrap("text1", token)
+        def token = springJwtTokenizer.create(new TestDto(text1: "value1"))
+        def unwrapped = springJwtTokenizer.parse("text1", token)
 
         then:
         unwrapped.get().value == "value1"
@@ -74,8 +74,8 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         TestDto testDto = new TestDto(text1: "value1", text2: "value2")
 
         when:
-        def token = springJwtTokenizer.wrap(testDto)
-        def unwrapped = springJwtTokenizer.unwrap(TestDto, token)
+        def token = springJwtTokenizer.create(testDto)
+        def unwrapped = springJwtTokenizer.parse(TestDto, token)
 
         then:
         unwrapped.text1 == "value1"

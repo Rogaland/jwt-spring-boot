@@ -26,10 +26,10 @@ The jwt-spring-boot can be configured either by values in the annotation or prop
 If both exists, the properties/yml-file values will always win.
 
 The main class used in `SpringJwtTokenizer`, it can be `@Autowired` into your own classes.  
-The important methods are `wrap` and `unwrap`.
+The important methods are `create` and `parse`.
 
-* __wrap()__ - Creates the JWT string and encrypts (if enabled) the value. Returns a string token.
-* __unwrap()__ - Decrypts (if enabled), runs validators and returns the list of claims with the content of the token.
+* __create()__ - Creates the JWT string and encrypts (if enabled) the value. Returns a string token.
+* __parse()__ - Decrypts (if enabled), runs validators and returns the list of claims with the content of the token.
 
 __Example__
 ```java
@@ -45,16 +45,16 @@ private SpringJwtTokenizer tokenizer;
 
 @PostConstruct
 public void init() {
-    String token = tokenizer.wrap("str-test", "testing");
-    Optional<Claim> claim = tokenizer.unwrap("str-test", token);
+    String token = tokenizer.create("str-test", "testing");
+    Optional<Claim> claim = tokenizer.parse("str-test", token);
 }
 ```
 
 ## Custom DTO
 
-It is also possible to wrap/unwrap custom DTOs.  
-When sending in your own object to `wrap()` it will find all variable names and values, and then build up claims for you.  
-The standard claims are also added. When unwrapping, send in the class and the token to the `unwrap()` function and it will build up the object from claims automatically.  
+It is also possible to create/parse custom DTOs.
+When sending in your own object to `create()` it will find all variable names and values, and then build up claims for you.
+The standard claims are also added. When unwrapping, send in the class and the token to the `parse()` function and it will build up the object from claims automatically.
 If there are claims present in the token, but they do not have corresponding fields in the object they are skipped.  
 By extending the class `DefaultClaim` you will get the default claims (such as Issuer).  
 
@@ -71,8 +71,8 @@ public class TestDto extends DefaultClaim {
 TestDto testDto = new TestDto();
 testDto.setText1("value1");
 
-String token = springJwtTokenizer.wrap(testDto);
-TestDto unwrapped = springJwtTokenizer.unwrap(TestDto.class, token);
+String token = springJwtTokenizer.create(testDto);
+TestDto testDto = springJwtTokenizer.parse(TestDto.class, token);
 
 ```
 

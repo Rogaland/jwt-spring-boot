@@ -60,7 +60,7 @@ public class SpringJwtTokenizer {
         return claimValidators;
     }
 
-    public String wrap(Object o) {
+    public String create(Object o) {
         BeanWrapperImpl impl = new BeanWrapperImpl(o);
         PropertyDescriptor[] descriptors = impl.getPropertyDescriptors();
         Set<Claim> claims = new HashSet<>();
@@ -73,18 +73,18 @@ public class SpringJwtTokenizer {
             }
         }
 
-        return wrap(claims);
+        return create(claims);
     }
 
-    public String wrap(String name, String value) {
-        return wrap(new Claim(name, value));
+    public String create(String name, String value) {
+        return create(new Claim(name, value));
     }
 
-    public String wrap(Claim... claims) {
-        return wrap(new HashSet<>(Arrays.asList(claims)));
+    public String create(Claim... claims) {
+        return create(new HashSet<>(Arrays.asList(claims)));
     }
 
-    public String wrap(Set<Claim> claims) {
+    public String create(Set<Claim> claims) {
         Map<String, Object> claimMap = new HashMap<>();
         claimMap.putAll(standardClaims);
         claimMap.putAll(claims.stream().collect(Collectors.toMap(Claim::getName, Claim::getValue)));
@@ -94,8 +94,8 @@ public class SpringJwtTokenizer {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T unwrap(Class<T> clazz, String value) {
-        Set<Claim> claims = unwrap(value);
+    public <T> T parse(Class<T> clazz, String value) {
+        Set<Claim> claims = parse(value);
         BeanWrapperImpl beanWrapper = new BeanWrapperImpl(clazz);
         PropertyDescriptor[] descriptors = beanWrapper.getPropertyDescriptors();
         for (PropertyDescriptor descriptor : descriptors) {
@@ -112,12 +112,12 @@ public class SpringJwtTokenizer {
         return (T) beanWrapper.getWrappedInstance();
     }
 
-    public Optional<Claim> unwrap(String name, String value) {
-        Set<Claim> claims = unwrap(value);
+    public Optional<Claim> parse(String name, String value) {
+        Set<Claim> claims = parse(value);
         return claims.stream().filter(claim -> claim.getName().equals(name)).findAny();
     }
 
-    public Set<Claim> unwrap(String value) {
+    public Set<Claim> parse(String value) {
         try {
             String token = encryptor.decrypt(value);
             Set<Claim> claims = getClaims(token);

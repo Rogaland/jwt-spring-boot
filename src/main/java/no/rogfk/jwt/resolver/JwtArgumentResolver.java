@@ -25,6 +25,6 @@ public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         String token = nativeWebRequest.getParameter("jwt");
-        return springJwtTokenizer.unwrap(methodParameter.getParameterType(), token);
+        return springJwtTokenizer.parse(methodParameter.getParameterType(), token);
     }
 }

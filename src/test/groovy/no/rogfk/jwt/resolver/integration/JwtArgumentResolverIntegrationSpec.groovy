@@ -32,7 +32,7 @@ class JwtArgumentResolverIntegrationSpec extends Specification {
 
     def "@JwtVariable, standard claim"() {
         given:
-        def token = springJwtTokenizer.wrap(new Claim(name: "test1", value: "value1"))
+        def token = springJwtTokenizer.create(new Claim(name: "test1", value: "value1"))
 
         when:
         def response = testRestTemplate.getForEntity("${baseUrl}/standard-claim?jwt=${token}", Claim)
@@ -45,7 +45,7 @@ class JwtArgumentResolverIntegrationSpec extends Specification {
 
     def "@JwtVariable, custom claim"() {
         given:
-        def token = springJwtTokenizer.wrap(new TestDto(text1: "value1", text2: "value2"))
+        def token = springJwtTokenizer.create(new TestDto(text1: "value1", text2: "value2"))
 
 
         when:
