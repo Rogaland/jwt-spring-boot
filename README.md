@@ -13,6 +13,16 @@ __Features__
 * Uses the JWT model with Claims
 * Encryption using [jasypt](http://www.jasypt.org/) and [bouncy castle](http://www.bouncycastle.org/)
 
+* [Installation](#installation)
+* [Usage](#usage)
+ * [Standard Validators](#standard-validators)
+ * [Custom Validators](#custom-validators)
+* [Configuration](#configuration)
+* [Deployment](#deployment)
+* [References](#references)
+
+---
+
 # Installation
 _build.gradle_
 
@@ -67,9 +77,6 @@ public TestDto test(@JwtParam TestDto testDto) {
 ```
 The url contains: `/custom-claim?testDto=<jwt>`
 
-
-## Custom DTO
-
 It is also possible to create/parse custom DTOs.
 When sending in your own object to `create()` it will find all variable names and values, and then build up claims for you.
 The standard claims are also added. When unwrapping, send in the class and the token to the `parse()` function and it will build up the object from claims automatically.
@@ -105,7 +112,7 @@ __Standard validators__:
 * __IssuerClaimValidator__ - Validates that the issuer in the token is the same as the values in the issuer property.
 
 
-## Add custom validators
+## Custom validators
 By using standard Spring dependency injection it is easy to add your own validators.  
 Simply create a new bean that extends the `ClaimValidator` interface. Implement the name, valid and optionally the exceptionMessage methods.
 
