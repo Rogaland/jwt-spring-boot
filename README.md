@@ -13,6 +13,8 @@ __Features__
 * Uses the JWT model with Claims
 * Encryption using [jasypt](http://www.jasypt.org/) and [bouncy castle](http://www.bouncycastle.org/)
 
+---
+
 * [Installation](#installation)
 * [Usage](#usage)
  * [Standard Validators](#standard-validators)
@@ -20,8 +22,6 @@ __Features__
 * [Configuration](#configuration)
 * [Deployment](#deployment)
 * [References](#references)
-
----
 
 # Installation
 _build.gradle_
