@@ -4,8 +4,6 @@
 
 JWT Spring Boot makes it easy to integrate JSON Web Tokens ([JWT](https://jwt.io/)) and Spring boot.
 
----
-
 __Features__
 
 * Annotation or properties/yml based configuration
