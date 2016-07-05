@@ -1,6 +1,6 @@
 package no.rogfk.jwt.testutils;
 
-import no.rogfk.jwt.annotations.JwtVariable;
+import no.rogfk.jwt.annotations.JwtParam;
 import no.rogfk.jwt.claims.Claim;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +14,12 @@ public class TestController {
 
 
     @RequestMapping("/standard-claim")
-    public Claim test(@JwtVariable Claim claim) {
+    public Claim test(@JwtParam(name = "jwt") Claim claim) {
         return claim;
     }
 
     @RequestMapping("/custom-claim")
-    public TestDto test(@JwtVariable TestDto testDto) {
+    public TestDto test(@JwtParam TestDto testDto) {
         return testDto;
     }
 

@@ -25,12 +25,6 @@ On the main class (containing `@SpringBootApplication`) add the `@EnableJwt` ann
 The jwt-spring-boot can be configured either by values in the annotation or properties/yml-files.
 If both exists, the properties/yml-file values will always win.
 
-The main class used in `SpringJwtTokenizer`, it can be `@Autowired` into your own classes.  
-The important methods are `create` and `parse`.
-
-* __create()__ - Creates the JWT string and encrypts (if enabled) the value. Returns a string token.
-* __parse()__ - Decrypts (if enabled), runs validators and returns the list of claims with the content of the token.
-
 __Example__
 ```java
 @EnableJwt(issuer = "my-org", maxAgeMinutes = 120)
@@ -39,6 +33,13 @@ public class Application {
   ...
 }
 ```
+
+The main class used in `SpringJwtTokenizer`, it can be `@Autowired` into your own classes.  
+The important methods are `create` and `parse`.
+
+* __create()__ - Creates the JWT string and encrypts (if enabled) the value. Returns a string token.
+* __parse()__ - Decrypts (if enabled), runs validators and returns the list of claims with the content of the token.
+
 ```java
 @Autowired
 private SpringJwtTokenizer tokenizer;
@@ -49,6 +50,20 @@ public void init() {
     Optional<Claim> claim = tokenizer.parse("str-test", token);
 }
 ```
+
+By using the `@JwtParam` annotation in a `RestController` class the parsing of a JWT string is done automatically.  
+The controller expects the input to be sent as a URL parameter or as a header. The name of the param can be specified in the annotation.  
+If the name is not set, the name of the method variable is used.
+
+__Example__
+```java
+@RequestMapping("/custom-claim")
+public TestDto test(@JwtParam TestDto testDto) {
+    return testDto;
+}
+```
+Expected url will contain: /custom-claim?testDto=<jwt>
+
 
 ## Custom DTO
 

@@ -30,7 +30,7 @@ class JwtArgumentResolverIntegrationSpec extends Specification {
         baseUrl = "http://localhost:${port}/test"
     }
 
-    def "@JwtVariable, standard claim"() {
+    def "JWT param, standard claim"() {
         given:
         def token = springJwtTokenizer.create(new Claim(name: "test1", value: "value1"))
 
@@ -43,13 +43,13 @@ class JwtArgumentResolverIntegrationSpec extends Specification {
         response.body.value == "value1"
     }
 
-    def "@JwtVariable, custom claim"() {
+    def "JWT param, custom claim"() {
         given:
         def token = springJwtTokenizer.create(new TestDto(text1: "value1", text2: "value2"))
 
 
         when:
-        def response = testRestTemplate.getForEntity("${baseUrl}/custom-claim?jwt=${token}", TestDto)
+        def response = testRestTemplate.getForEntity("${baseUrl}/custom-claim?testDto=${token}", TestDto)
 
         then:
         response.statusCode == HttpStatus.OK
