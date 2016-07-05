@@ -138,12 +138,12 @@ public class MyStringLengthValidator implements ClaimValidator {
 
 # Configuration
 
-| Key | Description | Required |
-|-----|----------|-------------|
-| jasypt.encryptor.password | Encrypts the token created with this password. Should be sent in as an environment variable. If this is set and the 'jwt.key' is not, this value will be used as the JWT key as well. | Y |
-| jwt.key |Key used to sign the JSON Web Token. | |
-| jwt.issuer | The issuer of the token, will be added as a standard claim. | |
-| jwt.max-age-minutes | The max age (in minutes) that the token is valid. Is added and validated as a standard claim. | |
+| Key | Description |
+|-----|----------|
+| jasypt.encryptor.password | Encrypts the token created with this password. Should be sent in as an environment variable. If this is set and the 'jwt.key' is not, this value will be used as the JWT key as well. |
+| jwt.key |Key used to sign the JSON Web Token. |
+| jwt.issuer | The issuer of the token, will be added as a standard claim. |
+| jwt.max-age-minutes | The max age (in minutes) that the token is valid. Is added and validated as a standard claim. |
 
 # Deployment
 Update the maven settings.xml file with id, username and password (api key):
