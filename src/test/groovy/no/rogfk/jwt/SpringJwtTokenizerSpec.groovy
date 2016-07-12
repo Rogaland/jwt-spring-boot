@@ -5,6 +5,7 @@ import no.rogfk.jwt.claims.validators.ClaimValidator
 import spock.lang.Specification
 
 class SpringJwtTokenizerSpec extends Specification {
+
     def "Create claims map"() {
         given:
         def validator1 = Mock(ClaimValidator) {
@@ -23,4 +24,5 @@ class SpringJwtTokenizerSpec extends Specification {
         validators.keySet()[0] == "validator"
         validators.values()[0].size() == 2
     }
+
 }

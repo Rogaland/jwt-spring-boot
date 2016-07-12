@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.NotWritablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import javax.inject.Provider;
 import java.beans.PropertyDescriptor;
@@ -58,6 +59,12 @@ public class SpringJwtTokenizer {
 
     public Map<String, List<ClaimValidator>> getClaimValidators() {
         return claimValidators;
+    }
+
+    public String createWithUrl(String url, Object o) {
+        String token = create(o);
+        String queryParam = StringUtils.uncapitalize(o.getClass().getSimpleName());
+        return url + "?" + queryParam + "=" + token;
     }
 
     public String create(Object o) {

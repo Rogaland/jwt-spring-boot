@@ -20,7 +20,7 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
     private SpringJwtTokenizer springJwtTokenizer
 
 
-    def "Unwrap invalid token"() {
+    def "Parse invalid token"() {
         when:
         springJwtTokenizer.parse("testing")
 
@@ -28,7 +28,7 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         thrown InvalidTokenException
     }
 
-    def "Wrap and unwrap standard and custom claims"() {
+    def "Create and parse standard and custom claims"() {
         given:
         def claim1 = new Claim("test-claim", "test-value1")
         def claim2 = new Claim("test-claim2", "test-value2")
@@ -46,7 +46,7 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         contains(claims, "test-claim2")
     }
 
-    def "Wrap and unwrap, failing claim validation with custom exception message"() {
+    def "Create and parse, failing claim validation with custom exception message"() {
         given:
         def claim1 = new Claim("test-claim2", "test-value1")
         def claim2 = new Claim("test-claim", "fail")
@@ -60,7 +60,7 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         exception.message == "Test exception"
     }
 
-    def "Wrap and unwrap, single value"() {
+    def "Create and parse, single value"() {
         when:
         def token = springJwtTokenizer.create(new TestDto(text1: "value1"))
         def unwrapped = springJwtTokenizer.parse("text1", token)
@@ -69,7 +69,7 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         unwrapped.get().value == "value1"
     }
 
-    def "Wrap and unwrap, custom dto"() {
+    def "Create and parse, custom dto"() {
         given:
         TestDto testDto = new TestDto(text1: "value1", text2: "value2")
 
@@ -82,6 +82,17 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         unwrapped.text2 == "value2"
         unwrapped.issuer == "test-org"
         unwrapped.issuedAt != null
+    }
+
+    def "Create with link"() {
+        given:
+        TestDto testDto = new TestDto(text1: "value1", text2: "value2")
+
+        when:
+        def token = springJwtTokenizer.createWithUrl("http://localhost", testDto)
+
+        then:
+        token.startsWith("http://localhost?testDto=")
     }
 
     private static boolean contains(Set<Claim> claims, String name) {
