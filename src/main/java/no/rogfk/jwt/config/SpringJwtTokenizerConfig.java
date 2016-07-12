@@ -35,7 +35,7 @@ public class SpringJwtTokenizerConfig implements ApplicationContextAware {
 
     private static final Logger log = LoggerFactory.getLogger(SpringJwtTokenizerConfig.class);
 
-    @Value("${jasypt.encryptor.algorithm:PBEWITHSHA256AND128BITAES-CBC-BC}")
+    @Value("${jasypt.encryptor.algorithm:PBEWithMD5AndDES}")
     private String encryptorAlgorithm;
 
     @Value("${jasypt.encryptor.password:}")
