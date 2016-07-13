@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.NotWritablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 
 import javax.inject.Provider;
@@ -28,6 +29,7 @@ public class SpringJwtTokenizer {
     private static final Logger log = LoggerFactory.getLogger(SpringJwtTokenizer.class);
 
     @Autowired
+    @Qualifier("jwtEncryptor")
     private StringEncryptor encryptor;
 
     @Autowired
