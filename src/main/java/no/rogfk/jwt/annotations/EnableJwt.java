@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(SpringJwtTokenizerConfig.class)
 public @interface EnableJwt {
-    boolean encryption() default true;
+    boolean encryption() default false;
 
     boolean standardValidators() default true;
 

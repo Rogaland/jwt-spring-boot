@@ -95,6 +95,17 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
         token.startsWith("http://localhost?testDto=")
     }
 
+    def "Create with link and custom query param"() {
+        given:
+        TestDto testDto = new TestDto(text1: "value1", text2: "value2")
+
+        when:
+        def token = springJwtTokenizer.createWithUrl("http://localhost", "t", testDto)
+
+        then:
+        token.startsWith("http://localhost?t=")
+    }
+
     private static boolean contains(Set<Claim> claims, String name) {
         return claims.find { it.name == name }
     }

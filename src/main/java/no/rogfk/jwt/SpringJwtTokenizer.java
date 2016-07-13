@@ -61,6 +61,11 @@ public class SpringJwtTokenizer {
         return claimValidators;
     }
 
+    public String createWithUrl(String url, String queryParam, Object o) {
+        String token = create(o);
+        return url + "?" + queryParam + "=" + token;
+    }
+
     public String createWithUrl(String url, Object o) {
         String token = create(o);
         String queryParam = StringUtils.uncapitalize(o.getClass().getSimpleName());
