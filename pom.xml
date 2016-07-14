@@ -5,7 +5,7 @@
 
     <groupId>no.rogfk</groupId>
     <artifactId>jwt-spring-boot</artifactId>
-    <version>0.0.13-SNAPSHOT</version>
+    <version>0.0.13</version>
     <packaging>jar</packaging>
 
     <properties>

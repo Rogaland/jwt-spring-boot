@@ -34,7 +34,7 @@ public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
         if (isEmpty(token)) {
             throw new MissingJwtParamException("The JwtParam is missing, expected param: " + parameterName);
         } else {
-            return springJwtTokenizer.parse(methodParameter.getParameterType(), token);
+            return springJwtTokenizer.parse(token, methodParameter.getParameterType());
         }
     }
 }

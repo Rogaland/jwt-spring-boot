@@ -107,8 +107,19 @@ public class SpringJwtTokenizer {
         return encryptor.encrypt(token);
     }
 
+    public <T> T parseWithUrl(String url, Class<T> clazz) {
+        String queryParam = StringUtils.uncapitalize(clazz.getSimpleName());
+        return parseWithUrl(url, queryParam, clazz);
+    }
+
+    public <T> T parseWithUrl(String url, String queryParam, Class<T> clazz) {
+        queryParam += "=";
+        String value = url.substring((url.lastIndexOf(queryParam) + queryParam.length()), url.length());
+        return parse(value, clazz);
+    }
+
     @SuppressWarnings("unchecked")
-    public <T> T parse(Class<T> clazz, String value) {
+    public <T> T parse(String value, Class<T> clazz) {
         Set<Claim> claims = parse(value);
         BeanWrapperImpl beanWrapper = new BeanWrapperImpl(clazz);
         PropertyDescriptor[] descriptors = beanWrapper.getPropertyDescriptors();

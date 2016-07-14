@@ -75,7 +75,37 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
 
         when:
         def token = springJwtTokenizer.create(testDto)
-        def unwrapped = springJwtTokenizer.parse(TestDto, token)
+        def unwrapped = springJwtTokenizer.parse(token, TestDto)
+
+        then:
+        unwrapped.text1 == "value1"
+        unwrapped.text2 == "value2"
+        unwrapped.issuer == "test-org"
+        unwrapped.issuedAt != null
+    }
+
+    def "Create and parse with url"() {
+        given:
+        TestDto testDto = new TestDto(text1: "value1", text2: "value2")
+
+        when:
+        def token = springJwtTokenizer.createWithUrl("http://localhost", testDto)
+        def unwrapped = springJwtTokenizer.parseWithUrl(token, TestDto)
+
+        then:
+        unwrapped.text1 == "value1"
+        unwrapped.text2 == "value2"
+        unwrapped.issuer == "test-org"
+        unwrapped.issuedAt != null
+    }
+
+    def "Create and parse with url and custom query param"() {
+        given:
+        TestDto testDto = new TestDto(text1: "value1", text2: "value2")
+
+        when:
+        def token = springJwtTokenizer.createWithUrl("http://localhost", "t", testDto)
+        def unwrapped = springJwtTokenizer.parseWithUrl(token, "t", TestDto)
 
         then:
         unwrapped.text1 == "value1"
