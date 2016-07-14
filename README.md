@@ -25,7 +25,7 @@ __Features__
 _build.gradle_
 
 ```groovy
-compile('no.rogfk:jwt-spring-boot:0.0.12')
+compile('no.rogfk:jwt-spring-boot:0.0.13')
 ```
 
 # Usage
