@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "jwt")
 public class ClaimsConfig {
 
-    private boolean encryptionEnabled = true;
+    private boolean encryption = false;
 
     private boolean standardValidators = true;
 
@@ -17,12 +17,12 @@ public class ClaimsConfig {
 
     private Long maxAgeMinutes;
 
-    public boolean isEncryptionEnabled() {
-        return encryptionEnabled;
+    public boolean isEncryption() {
+        return encryption;
     }
 
-    public void setEncryptionEnabled(boolean encryptionEnabled) {
-        this.encryptionEnabled = encryptionEnabled;
+    public void setEncryption(boolean encryption) {
+        this.encryption = encryption;
     }
 
     public boolean isStandardValidators() {

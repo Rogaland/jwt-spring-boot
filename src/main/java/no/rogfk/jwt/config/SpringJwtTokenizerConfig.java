@@ -6,7 +6,6 @@ import no.rogfk.jwt.SpringJwtTokenizer;
 import no.rogfk.jwt.annotations.EnableJwt;
 import no.rogfk.jwt.claims.Claim;
 import no.rogfk.jwt.claims.validators.ClaimValidator;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.slf4j.Logger;
@@ -49,7 +48,7 @@ public class SpringJwtTokenizerConfig implements ApplicationContextAware {
 
     @PostConstruct
     public void init() {
-        if (claimsConfig.isEncryptionEnabled()) {
+        if (claimsConfig.isEncryption()) {
             if (encryptorPassword == null || encryptorPassword.length == 0) {
                 throw new IllegalArgumentException("Missing property 'jasypt.encryptor.password'");
             } else {
@@ -84,7 +83,7 @@ public class SpringJwtTokenizerConfig implements ApplicationContextAware {
     }
 
     private void setAnnotationConfig(EnableJwt annotation) {
-        claimsConfig.setEncryptionEnabled(annotation.encryption());
+        claimsConfig.setEncryption(annotation.encryption());
         claimsConfig.setStandardValidators(annotation.standardValidators());
         String annotationIssuer = annotation.issuer();
         String issuer = claimsConfig.getIssuer();
@@ -126,9 +125,8 @@ public class SpringJwtTokenizerConfig implements ApplicationContextAware {
     @Bean
     @Qualifier("jwtEncryptor")
     public StringEncryptor stringEncryptor() {
-        if (claimsConfig.isEncryptionEnabled()) {
+        if (claimsConfig.isEncryption()) {
             StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-            encryptor.setProvider(new BouncyCastleProvider());
             encryptor.setAlgorithm(encryptorAlgorithm);
             encryptor.setPasswordCharArray(encryptorPassword);
             for (int i = 0; i < encryptorPassword.length; i++) {

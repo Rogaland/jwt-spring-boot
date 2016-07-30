@@ -2,9 +2,27 @@ package no.rogfk.jwt
 
 import no.rogfk.jwt.claims.Claim
 import no.rogfk.jwt.claims.validators.ClaimValidator
+import no.rogfk.jwt.config.ClaimsConfig
+import no.rogfk.jwt.config.SpringJwtTokenizerConfig
+import no.rogfk.jwt.exceptions.InvalidTokenException
 import spock.lang.Specification
 
 class SpringJwtTokenizerSpec extends Specification {
+
+
+    def "Parse invalid token"() {
+        given:
+        def config = new SpringJwtTokenizerConfig(claimsConfig: new ClaimsConfig(encryption: true),
+                encryptorPassword: "test123".bytes, encryptorAlgorithm: "PBEWithMD5AndDES")
+        config.init()
+        SpringJwtTokenizer springJwtTokenizer = new SpringJwtTokenizer(encryptor: config.stringEncryptor())
+
+        when:
+        springJwtTokenizer.parse("testing")
+
+        then:
+        thrown InvalidTokenException
+    }
 
     def "Create claims map"() {
         given:

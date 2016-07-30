@@ -38,9 +38,12 @@ public class SpringJwtTokenizer {
     @Autowired
     private Provider<JwtParser> jwtParser;
 
-    private final Map<String, List<ClaimValidator>> claimValidators;
+    private Map<String, List<ClaimValidator>> claimValidators;
 
-    private final Map<String, String> standardClaims;
+    private Map<String, String> standardClaims;
+
+    SpringJwtTokenizer() {
+    }
 
     public SpringJwtTokenizer(Collection<ClaimValidator> validators, Collection<Claim> standardClaims) {
         Map<String, List<ClaimValidator>> validatorMap = new HashMap<>();
@@ -83,7 +86,6 @@ public class SpringJwtTokenizer {
             Object value = impl.getPropertyValue(name);
             if (name != null && !"class".equals(name) && value != null) {
                 claims.add(new Claim(name, value.toString()));
-
             }
         }
 
@@ -146,10 +148,10 @@ public class SpringJwtTokenizer {
         try {
             String token = encryptor.decrypt(value);
             Set<Claim> claims = getClaims(token);
-            claims.stream().forEach(claim -> {
+            claims.forEach(claim -> {
                 List<ClaimValidator> validators = this.claimValidators.get(claim.getName());
                 if (validators != null) {
-                    validators.stream().forEach(validator -> validateClaim(claim, validator));
+                    validators.forEach(validator -> validateClaim(claim, validator));
                 }
             });
 

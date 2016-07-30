@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims
 import no.rogfk.jwt.SpringJwtTokenizer
 import no.rogfk.jwt.claims.Claim
 import no.rogfk.jwt.exceptions.ClaimValidatorException
-import no.rogfk.jwt.exceptions.InvalidTokenException
 import no.rogfk.jwt.testutils.TestApplication
 import no.rogfk.jwt.testutils.TestDto
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,15 +17,6 @@ class SpringJwtTokenizerIntegrationSpec extends Specification {
 
     @Autowired
     private SpringJwtTokenizer springJwtTokenizer
-
-
-    def "Parse invalid token"() {
-        when:
-        springJwtTokenizer.parse("testing")
-
-        then:
-        thrown InvalidTokenException
-    }
 
     def "Create and parse standard and custom claims"() {
         given:

@@ -17,7 +17,7 @@ class SpringJwtTokenizerConfigSpec extends Specification {
 
     def "Encryption disabled, missing jwt key"() {
         given:
-        SpringJwtTokenizerConfig config = new SpringJwtTokenizerConfig(claimsConfig: new ClaimsConfig(encryptionEnabled: false))
+        SpringJwtTokenizerConfig config = new SpringJwtTokenizerConfig(claimsConfig: new ClaimsConfig(encryption: false))
 
         when:
         config.init()

@@ -9,7 +9,7 @@ __Features__
 * Annotation or properties/yml based configuration
 * Support for custom _ClaimValidators_, for easy validation of token values
 * Uses the JWT model with Claims
-* Encryption using [jasypt](http://www.jasypt.org/) and [bouncy castle](http://www.bouncycastle.org/)
+* Encryption using [jasypt](http://www.jasypt.org/) with configurable encryption algorithm
 
 ---
 
