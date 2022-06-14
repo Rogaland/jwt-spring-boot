@@ -146,17 +146,18 @@
             <url>http://repo.spring.io/release</url>
         </repository>
         <repository>
-            <id>jcenter</id>
-            <url>http://jcenter.bintray.com/</url>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
 
-    <distributionManagement>
-        <repository>
-            <id>bintray-rfkikt-maven</id>
-            <name>rfkikt-maven</name>
-            <url>https://api.bintray.com/maven/rfkikt/maven/jwt-spring-boot/;publish=1</url>
-        </repository>
-    </distributionManagement>
+<distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub OWNER Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/rogaland/jwt-spring-boot</url>
+   </repository>
+</distributionManagement>
+
 
 </project>
